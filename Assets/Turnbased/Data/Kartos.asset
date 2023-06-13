@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ab8f77cf08304a0d825f62ced597e79, type: 3}
   m_Name: Kartos
   m_EditorClassIdentifier: 
+  charId: 1
   characterName: Kratos
   defense: 30
   DamageInfo:

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Turnbased.Scripts.Player;
@@ -5,10 +6,25 @@ using UnityEngine;
 
 public class BattleManager : MonoBehaviour
 {
+   public static BattleManager instance;
    public Unit attacker;
    public Unit defender;
 
    [SerializeField] private BattleUIManager _battleUIManager;
+
+
+   private void Start()
+   {
+      if (instance == null)
+      {
+         instance = this;
+      }
+   }
+
+   public static BattleManager GetInstance()
+   {
+      return instance;
+   }
 
    public void DoAction(int moveType)
    {

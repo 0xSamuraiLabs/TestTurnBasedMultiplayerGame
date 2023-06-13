@@ -5,6 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "CharacterData", menuName = "Pokemon/CharacterData", order = 1)]
 public class CharacterData : ScriptableObject
 {
+    public int charId;
     public string characterName;
     public int defense;
     public DamageInfo DamageInfo;
