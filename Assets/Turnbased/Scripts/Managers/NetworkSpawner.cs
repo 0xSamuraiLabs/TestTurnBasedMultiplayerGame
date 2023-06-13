@@ -10,7 +10,7 @@ namespace Turnbased.Scripts.Managers
     {
         [SerializeField] private Transform playerSpawnPoint, opponentSpawnPoint;
 
-        private Unit player, opponent;
+        GameObject player;
         private PhotonView _photonView;
         public void Start()
         {
@@ -20,19 +20,30 @@ namespace Turnbased.Scripts.Managers
         
         void SpawnPlayer()
         {
-            player = Instantiate(CharacterDatabase.GetInstance().GetCharacterWithID(PlayerCharacterManager.GetInstance().GetUserCharacterID()));
-            if (PhotonNetwork.LocalPlayer.IsLocal)
+            if (player != null)
             {
-                player.transform.position = playerSpawnPoint.position;
+                return;
             }
-            photonView.RPC(nameof(SpawnOpponent),RpcTarget.All,PlayerCharacterManager.GetInstance().GetUserCharacterID());
+
+            // Check if the local player is the master client
+            if (PhotonNetwork.IsMasterClient)
+            {
+                // Spawn the local player at the player spawn position
+                player = PhotonNetwork.Instantiate(CharacterDatabase.GetInstance().GetCharacterWithID(PlayerCharacterManager.GetInstance().GetUserCharacterID()).name, playerSpawnPoint.position, Quaternion.identity);
+                Unit myUnint = player.GetComponent<Unit>();
+                myUnint.turnIndex = 0;
+            }
+            else
+            {
+                // Spawn the opponent at the opponent spawn position
+                player = PhotonNetwork.Instantiate(CharacterDatabase.GetInstance().GetCharacterWithID(PlayerCharacterManager.GetInstance().GetUserCharacterID()).name, opponentSpawnPoint.position, Quaternion.identity);
+                Unit myUnint = player.GetComponent<Unit>();
+                myUnint.turnIndex = 1;
+
+            }
+            
         }
         
-        [PunRPC]
-        void SpawnOpponent(int characterId)
-        {
-            opponent = Instantiate(CharacterDatabase.GetInstance().GetCharacterWithID(characterId));
-            opponent.transform.position = opponentSpawnPoint.position;
-        }
+        
     }
 }

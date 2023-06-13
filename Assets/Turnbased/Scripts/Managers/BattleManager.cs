@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Photon.Pun;
 using Turnbased.Scripts.Player;
 using UnityEngine;
 
@@ -11,7 +12,7 @@ public class BattleManager : MonoBehaviour
    public Unit defender;
 
    [SerializeField] private BattleUIManager _battleUIManager;
-
+   private PhotonView pView;
 
    private void Start()
    {
@@ -19,11 +20,19 @@ public class BattleManager : MonoBehaviour
       {
          instance = this;
       }
+
+      pView = PhotonView.Get(this);
    }
 
    public static BattleManager GetInstance()
    {
       return instance;
+   }
+
+   public void Init(Unit attacker , Unit defender)
+   {
+      this.attacker = attacker;
+      this.defender = defender;
    }
 
    public void DoAction(int moveType)
@@ -43,15 +52,14 @@ public class BattleManager : MonoBehaviour
             Swap();
             break;
       }
-      NextTurn();
+      pView.RPC(nameof(NextTurn),RpcTarget.AllBuffered);
    }
    
+   [PunRPC]
    private void NextTurn()
    {
       // Swap the attacker and defender for the next turn
-      Unit temp = attacker;
-      attacker = defender;
-      defender = temp;
+      (attacker, defender) = (defender, attacker);
    }
    
 
