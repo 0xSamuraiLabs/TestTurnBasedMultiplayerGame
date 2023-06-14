@@ -556,7 +556,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attacker: {fileID: 0}
   defender: {fileID: 0}
-  _battleUIManager: {fileID: 230421242}
+  _battleUIManager: {fileID: 0}
 --- !u!4 &543488036
 Transform:
   m_ObjectHideFlags: 0

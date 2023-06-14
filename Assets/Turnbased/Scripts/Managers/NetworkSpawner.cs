@@ -9,11 +9,12 @@ namespace Turnbased.Scripts.Managers
     public class NetworkSpawner : MonoBehaviourPunCallbacks
     {
         [SerializeField] private Transform playerSpawnPoint, opponentSpawnPoint;
-
+        private Camera _camera;
         GameObject player;
         private PhotonView _photonView;
         public void Start()
         {
+            _camera = Camera.main;
             _photonView = GetComponent<PhotonView>();
             SpawnPlayer();
         }
@@ -30,20 +31,19 @@ namespace Turnbased.Scripts.Managers
             {
                 // Spawn the local player at the player spawn position
                 player = PhotonNetwork.Instantiate(CharacterDatabase.GetInstance().GetCharacterWithID(PlayerCharacterManager.GetInstance().GetUserCharacterID()).name, playerSpawnPoint.position, Quaternion.identity);
-                Unit myUnint = player.GetComponent<Unit>();
-                myUnint.turnIndex = 0;
             }
             else
             {
                 // Spawn the opponent at the opponent spawn position
                 player = PhotonNetwork.Instantiate(CharacterDatabase.GetInstance().GetCharacterWithID(PlayerCharacterManager.GetInstance().GetUserCharacterID()).name, opponentSpawnPoint.position, Quaternion.identity);
-                Unit myUnint = player.GetComponent<Unit>();
-                myUnint.turnIndex = 1;
+                // _camera.orthographicSize = -_camera.orthographicSize;
+                // player.transform.localScale = -(player.transform.localScale);
 
             }
+            BattleManager.GetInstance().Init(player.GetComponent<Unit>());
             
         }
-        
-        
+
+       
     }
 }

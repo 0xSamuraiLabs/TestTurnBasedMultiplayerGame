@@ -8,10 +8,11 @@ namespace Turnbased.Scripts.Player
     public class Unit : MonoBehaviour
     {
         public CharacterData charData;
-        public int turnIndex;
         private Damagable _damagable;
         private PhotonView pv;
         [SerializeField]private PlayerDetailsUI playerDetailsUI;
+
+        [SerializeField] private MoveData _moveData;
         // Start is called before the first frame update
         void Start()
         {
@@ -20,8 +21,12 @@ namespace Turnbased.Scripts.Player
             pv = GetComponent<PhotonView>();
         }
 
-        
-        public void TakeDamage(DamageInfo info)
+
+        public void Attack()
+        {
+            TakeDamage(charData.DamageInfo);
+        }
+        private void TakeDamage(DamageInfo info)
         {
             pv.RPC(nameof(TakeDamageRPC),RpcTarget.AllBuffered,info.damageAmount);
         }

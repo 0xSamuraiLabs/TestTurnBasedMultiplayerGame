@@ -8,10 +8,10 @@ using UnityEngine;
 public class BattleManager : MonoBehaviour
 {
    public static BattleManager instance;
-   public Unit attacker;
-   public Unit defender;
-
+   public int TurnIndex;
+   
    [SerializeField] private BattleUIManager _battleUIManager;
+   [SerializeField] private Unit myPlayer;
    private PhotonView pView;
 
    private void Start()
@@ -29,12 +29,10 @@ public class BattleManager : MonoBehaviour
       return instance;
    }
 
-   public void Init(Unit attacker , Unit defender)
+   public void Init(Unit player)
    {
-      this.attacker = attacker;
-      this.defender = defender;
+      myPlayer = player;
    }
-
    public void DoAction(int moveType)
    {
       switch ((EMoveType)moveType)
@@ -58,8 +56,7 @@ public class BattleManager : MonoBehaviour
    [PunRPC]
    private void NextTurn()
    {
-      // Swap the attacker and defender for the next turn
-      (attacker, defender) = (defender, attacker);
+     TurnHandler.GetInstance().EndTurn(myPlayer.get);
    }
    
 
@@ -80,8 +77,8 @@ public class BattleManager : MonoBehaviour
 
    private void Attack()
    {
-      defender.TakeDamage(attacker.GetDamage());
-      _battleUIManager.ShowIncomingBattleText(attacker.charData);
+      myPlayer.Attack();
+      // _battleUIManager.ShowIncomingBattleText(attacker.charData);
    }
 }
 
