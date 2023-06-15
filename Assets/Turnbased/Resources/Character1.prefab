@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 3707697977262869262}
   - component: {fileID: 3707697977262869260}
   - component: {fileID: 3707697977262869261}
+  - component: {fileID: 210168822334094290}
   m_Layer: 5
   m_Name: DamageValue_txt
   m_TagString: Untagged
@@ -35,8 +36,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -1.451, y: 1.175}
-  m_SizeDelta: {x: 0.6479, y: 0.3868}
+  m_AnchoredPosition: {x: -0.070769, y: 0.45}
+  m_SizeDelta: {x: 3.4081, y: 0.3868}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3707697977262869260
 CanvasRenderer:
@@ -75,8 +76,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 16777215
+  m_fontColor: {r: 1, g: 1, b: 1, a: 0}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -93,8 +94,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 0.5
-  m_fontSizeBase: 0.5
+  m_fontSize: 0.3
+  m_fontSizeBase: 0.3
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -135,6 +136,26 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!95 &210168822334094290
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3707697977262869263}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 6ab57f71a9b8d48fda7349a4203d788e, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
 --- !u!1 &3707697977957380389
 GameObject:
   m_ObjectHideFlags: 0
@@ -598,6 +619,7 @@ GameObject:
   - component: {fileID: 3707697978779791054}
   - component: {fileID: 3707697978779791053}
   - component: {fileID: 3707697978779791052}
+  - component: {fileID: 9007172418985660400}
   m_Layer: 0
   m_Name: Character1
   m_TagString: Player
@@ -715,6 +737,7 @@ MonoBehaviour:
   charData: {fileID: 11400000, guid: 73f6094714f194df2b76f47280451e74, type: 2}
   playerDetailsUI: {fileID: 3707697977957380385}
   _moveData: {fileID: 0}
+  isDefending: 0
 --- !u!114 &3707697978779791052
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -737,6 +760,19 @@ MonoBehaviour:
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
+--- !u!114 &9007172418985660400
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3707697978779791058}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58deba409f147426a8068aceef8a27b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  messageText: {fileID: 3707697977262869261}
 --- !u!1 &3707697978798329725
 GameObject:
   m_ObjectHideFlags: 0

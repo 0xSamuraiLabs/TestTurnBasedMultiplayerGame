@@ -10,6 +10,7 @@ namespace Turnbased.Scripts.Player
         public CharacterData charData;
         private Damagable _damagable;
         private PhotonView pv;
+        private PlayerMessage _playerMessage;
         [SerializeField]private PlayerDetailsUI playerDetailsUI;
         [SerializeField] private MoveData _moveData;
 
@@ -18,6 +19,7 @@ namespace Turnbased.Scripts.Player
         void Start()
         {
             _damagable = GetComponent<Damagable>();
+            _playerMessage = GetComponent<PlayerMessage>();
             playerDetailsUI.SetDetails(charData.characterName);
             pv = GetComponent<PhotonView>();
         }
@@ -25,12 +27,6 @@ namespace Turnbased.Scripts.Player
         
         public void Attack()
         {
-            if (isDefending)
-            {
-                Debug.Log("Deflected");
-                Defend(false);
-                return;
-            }
             TakeDamage(charData.DamageInfo);
             Defend(false);
         }
@@ -55,6 +51,7 @@ namespace Turnbased.Scripts.Player
         [PunRPC]
         void HealRPC(float amt)
         {
+            _playerMessage.ShowMessage("Health++");
             _damagable.IncreaseHealth(amt);
         }
         
@@ -66,6 +63,12 @@ namespace Turnbased.Scripts.Player
         [PunRPC]
         void TakeDamageRPC(float val)
         {
+            if (isDefending)
+            {
+                _playerMessage.ShowMessage("Deflected");
+                Defend(false);
+                return;
+            }
             _damagable.Damage(val);
         }
         

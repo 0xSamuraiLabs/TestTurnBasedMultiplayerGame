@@ -111,11 +111,6 @@ public class BattleManager : MonoBehaviour
             Unit opponentUnit = opponent.GetComponent<Unit>();
             if (opponentUnit!=null)
             {
-               if (opponentUnit.isDefending)
-               {
-                  Debug.Log("Defended");
-                  return;
-               }
                opponentUnit.Attack();
             }
          }
