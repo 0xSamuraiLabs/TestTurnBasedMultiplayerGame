@@ -6,9 +6,9 @@ namespace Turnbased.Scripts.Managers
 {
     public class PlayerCharacterManager : Singleton<PlayerCharacterManager>
     {
-        [SerializeField] private int playerId;
+        [SerializeField] private int[] playerId;
         
-        public int GetUserCharacterID()
+        public int[] GetUserCharacterID()
         {
             return playerId;
         }

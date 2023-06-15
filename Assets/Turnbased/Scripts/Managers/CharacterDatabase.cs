@@ -6,14 +6,14 @@ using UnityEngine;
 
 public class CharacterDatabase : Singleton<CharacterDatabase>
 {
-    [SerializeField]private List<Unit> Characters;
-
-    public Unit GetCharacterWithID(int id)
+    public Unit CharacterPrefab;
+    [SerializeField] private List<CharacterDTO> _characterDtos;
+    public CharacterDTO GetCharacterWithID(int id)
     {
-        Unit character=null;
-        foreach (var ch in Characters)
+        CharacterDTO character=null;
+        foreach (var ch in _characterDtos)
         {
-            if (ch.charData.charId == id)
+            if (ch.CharacterData.charId == id)
             {
                 character = ch;
             }
@@ -22,4 +22,11 @@ public class CharacterDatabase : Singleton<CharacterDatabase>
     }
 
 
+}
+
+[Serializable]
+public class CharacterDTO
+{
+    public CharacterData CharacterData;
+    public GameObject characterPrefab;
 }

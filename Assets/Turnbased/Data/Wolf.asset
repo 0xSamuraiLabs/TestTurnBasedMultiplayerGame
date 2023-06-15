@@ -10,10 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3ab8f77cf08304a0d825f62ced597e79, type: 3}
-  m_Name: CharacterData
+  m_Name: Wolf
   m_EditorClassIdentifier: 
-  characterName: Zeus
-  defense: 0
+  charId: 2
+  characterName: Wolf
+  defense: 20
   DamageInfo:
-    damageAmount: 20
+    damageAmount: 30
     isCritical: 0

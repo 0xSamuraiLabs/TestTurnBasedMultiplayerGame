@@ -30,12 +30,12 @@ namespace Turnbased.Scripts.Managers
             if (PhotonNetwork.IsMasterClient)
             {
                 // Spawn the local player at the player spawn position
-                player = PhotonNetwork.Instantiate(CharacterDatabase.GetInstance().GetCharacterWithID(PlayerCharacterManager.GetInstance().GetUserCharacterID()).name, playerSpawnPoint.position, Quaternion.identity);
+                player = PhotonNetwork.Instantiate(CharacterDatabase.GetInstance().CharacterPrefab.name, playerSpawnPoint.position, Quaternion.identity);
             }
             else
             {
                 // Spawn the opponent at the opponent spawn position
-                player = PhotonNetwork.Instantiate(CharacterDatabase.GetInstance().GetCharacterWithID(PlayerCharacterManager.GetInstance().GetUserCharacterID()).name, opponentSpawnPoint.position, Quaternion.identity);
+                player = PhotonNetwork.Instantiate(CharacterDatabase.GetInstance().CharacterPrefab.name, opponentSpawnPoint.position, Quaternion.identity);
                 // _camera.orthographicSize = -_camera.orthographicSize;
                 // player.transform.localScale = -(player.transform.localScale);
             }

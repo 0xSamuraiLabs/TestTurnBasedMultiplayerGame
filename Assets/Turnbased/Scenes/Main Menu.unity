@@ -542,7 +542,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f418f54f548384f87908cf6b86f5a721, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerId: 0
+  playerId: 000000000100000002000000
 --- !u!4 &1081170632
 Transform:
   m_ObjectHideFlags: 0
@@ -1452,9 +1452,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b08fb4a75915495d985cbb2726d74d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Characters:
-  - {fileID: 3707697978779791053, guid: 6ebcf4308bb8d4a26871ea18412542bb, type: 3}
-  - {fileID: 6553735391652124345, guid: 31ad50b72162442eaaa308d2d1eeac63, type: 3}
+  CharacterPrefab: {fileID: 3707697978779791053, guid: 6ebcf4308bb8d4a26871ea18412542bb, type: 3}
+  _characterDtos:
+  - CharacterData: {fileID: 11400000, guid: dbadf954478e544b4938193ca6d6d186, type: 2}
+    characterPrefab: {fileID: 6404431021780625735, guid: d31157513359c43eca12d8a03ae4fd7f, type: 3}
+  - CharacterData: {fileID: 11400000, guid: 048b06237de8a4866bc77f99a6643c69, type: 2}
+    characterPrefab: {fileID: 6602919984175398870, guid: 01fb70453ffcc4beeb66394d29b9f424, type: 3}
+  - CharacterData: {fileID: 11400000, guid: 5b3b04a82f8174b868f7b9b5b39000c7, type: 2}
+    characterPrefab: {fileID: 117150395161187363, guid: 4e0cb19341c5f0443a9f7948ea19e094, type: 3}
+  - CharacterData: {fileID: 11400000, guid: 73f6094714f194df2b76f47280451e74, type: 2}
+    characterPrefab: {fileID: 9142199033908274752, guid: 6bd8864ef1f7347f4a842f1610eedabb, type: 3}
 --- !u!4 &1991677486
 Transform:
   m_ObjectHideFlags: 0
