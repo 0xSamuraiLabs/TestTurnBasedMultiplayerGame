@@ -95,7 +95,12 @@ public class BattleManager : MonoBehaviour
 
    private void Defend()
    {
-      throw new System.NotImplementedException();
+      GameObject player = GetMyPlayer();
+      if (player != null)
+      {
+         Unit playerUnit = player.GetComponent<Unit>();
+         playerUnit.Defend(true);
+      }
    }
 
    private void Attack()
@@ -106,6 +111,11 @@ public class BattleManager : MonoBehaviour
             Unit opponentUnit = opponent.GetComponent<Unit>();
             if (opponentUnit!=null)
             {
+               if (opponentUnit.isDefending)
+               {
+                  Debug.Log("Defended");
+                  return;
+               }
                opponentUnit.Attack();
             }
          }

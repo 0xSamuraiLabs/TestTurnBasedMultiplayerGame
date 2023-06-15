@@ -13,6 +13,7 @@ namespace Turnbased.Scripts.Player
         [SerializeField]private PlayerDetailsUI playerDetailsUI;
         [SerializeField] private MoveData _moveData;
 
+        public bool isDefending;
         // Start is called before the first frame update
         void Start()
         {
@@ -24,12 +25,31 @@ namespace Turnbased.Scripts.Player
         
         public void Attack()
         {
+            if (isDefending)
+            {
+                Debug.Log("Deflected");
+                Defend(false);
+                return;
+            }
             TakeDamage(charData.DamageInfo);
+            Defend(false);
+        }
+
+        public void Defend(bool state)
+        {
+            pv.RPC(nameof(DefendRPC),RpcTarget.All,state);
+        }
+
+        [PunRPC]
+        void DefendRPC(bool state)
+        {
+            isDefending = state;
         }
 
         public void Heal(float amt)
         {
             pv.RPC(nameof(HealRPC),RpcTarget.AllBuffered,amt);
+            Defend(false);
         }
 
         [PunRPC]
@@ -53,12 +73,7 @@ namespace Turnbased.Scripts.Player
         {
             return _damagable.GetCurrentHealth() <= 0;
         }
-
-        public bool IsMyTurn(Unit unit)
-        {
-            return unit == this; 
-        }
-
+        
         public DamageInfo GetDamage()
         {
             return charData.DamageInfo;
