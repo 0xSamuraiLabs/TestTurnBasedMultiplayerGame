@@ -554,9 +554,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7818c05a90df14cb996c807e307ccc2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TurnIndex: 0
   _battleUIManager: {fileID: 0}
-  myPlayer: {fileID: 0}
 --- !u!4 &543488036
 Transform:
   m_ObjectHideFlags: 0
@@ -1881,7 +1879,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1827198493}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 543488035}
+        m_TargetAssemblyTypeName: BattleManager, Assembly-CSharp
+        m_MethodName: DoAction
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 2
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1827198493
 MonoBehaviour:
   m_ObjectHideFlags: 0

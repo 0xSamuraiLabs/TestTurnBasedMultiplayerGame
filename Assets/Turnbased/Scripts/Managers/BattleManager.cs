@@ -67,7 +67,12 @@ public class BattleManager : MonoBehaviour
 
    private void Heal()
    {
-      throw new System.NotImplementedException();
+      GameObject player = GetMyPlayer();
+      if (player != null)
+      {
+         Unit playerUnit = player.GetComponent<Unit>();
+         playerUnit.Heal(50);
+      }
    }
 
    private void Defend()
@@ -87,7 +92,7 @@ public class BattleManager : MonoBehaviour
             }
          }
    }
-
+   
    GameObject GetOpponentPlayer()
    {
       GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
@@ -101,9 +106,25 @@ public class BattleManager : MonoBehaviour
 
       return null;
    }
+
+   GameObject GetMyPlayer()
+   {
+      GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+      foreach (var pla in players)
+      {
+         if (pla.GetComponent<PhotonView>().IsMine)
+         {
+            return pla;
+         }
+      }
+
+      return null;
+   }
+
 }
 
 public enum EMoveType
 {
    Attack=0 , Defend=1 , Heal=2 , Swap=3
 }
+

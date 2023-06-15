@@ -26,6 +26,18 @@ namespace Turnbased.Scripts.Player
         {
             TakeDamage(charData.DamageInfo);
         }
+
+        public void Heal(float amt)
+        {
+            pv.RPC(nameof(HealRPC),RpcTarget.AllBuffered,amt);
+        }
+
+        [PunRPC]
+        void HealRPC(float amt)
+        {
+            _damagable.IncreaseHealth(amt);
+        }
+        
         private void TakeDamage(DamageInfo info)
         {
             pv.RPC(nameof(TakeDamageRPC),RpcTarget.AllBuffered,info.damageAmount);

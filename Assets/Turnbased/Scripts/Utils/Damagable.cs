@@ -56,6 +56,18 @@ namespace Turnbased.Scripts.Utils
             currentHealth -= damage;
             OnDamaged?.Invoke();
         }
+
+        public void IncreaseHealth(float amt)
+        {
+            if (currentHealth >= maxHealth)
+            {
+                Debug.Log("Max health already so no use");
+                return;
+            }
+            currentHealth += amt;
+            currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
+            OnDamaged?.Invoke();
+        }
     }
 }
 
