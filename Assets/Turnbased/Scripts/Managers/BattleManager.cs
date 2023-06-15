@@ -105,7 +105,14 @@ public class BattleManager : MonoBehaviour
 
    private void Attack()
    {
-         GameObject opponent = GetOpponentPlayer();
+      GameObject player = GetMyPlayer();
+      if (player != null)
+      {
+         Unit playerUnit = player.GetComponent<Unit>();
+         playerUnit.PlayAttackAnimation();
+      }
+      
+      GameObject opponent = GetOpponentPlayer();
          if (opponent != null)
          {
             Unit opponentUnit = opponent.GetComponent<Unit>();

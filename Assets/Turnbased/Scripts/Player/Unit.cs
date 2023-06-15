@@ -17,6 +17,8 @@ namespace Turnbased.Scripts.Player
         [SerializeField]private PlayerDetailsUI playerDetailsUI;
         [SerializeField] private Transform characterModelSpawnPoint;
         public bool isDefending;
+
+        public Animator _animator;
         // Start is called before the first frame update
         void Start()
         {
@@ -46,8 +48,22 @@ namespace Turnbased.Scripts.Player
                 .GetCharacterWithID(index).CharacterData;
             playerDetailsUI.SetDetails(charData.characterName);
         }
+        
+        public void PlayAttackAnimation()
+        {
+            pv.RPC(nameof(AttackAnimationRPC),RpcTarget.All);
+        }
 
-       
+        [PunRPC]
+        void AttackAnimationRPC()
+        {
+            if (_animator == null)
+            {
+                _animator = this.transform.Find("CharacterSpawnPosition").GetComponentInChildren<Animator>();
+            }
+            
+            _animator.SetTrigger("Attack");
+        }
         
         public void Attack()
         {

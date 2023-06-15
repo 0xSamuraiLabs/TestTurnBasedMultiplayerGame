@@ -113,7 +113,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 117150395161187363, guid: e929733112a256249a575ed7ae32b6d7, type: 3}
       propertyPath: m_Name
-      value: Cannibal
+      value: Canniball
       objectReference: {fileID: 0}
     - target: {fileID: 2108586831699632074, guid: e929733112a256249a575ed7ae32b6d7, type: 3}
       propertyPath: m_LocalScale.x
@@ -145,3 +145,24 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e929733112a256249a575ed7ae32b6d7, type: 3}
+--- !u!1 &6404431021780625735 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 117150395161187363, guid: e929733112a256249a575ed7ae32b6d7, type: 3}
+  m_PrefabInstance: {fileID: 6431474231142841700}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1392011071726512836
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6404431021780625735}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b8c4a61274f60b4ea5fb4299cfdbf14, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShowLayerWeightsInspector: 1
+  ShowParameterInspector: 1
+  m_SynchronizeParameters: []
+  m_SynchronizeLayers: []

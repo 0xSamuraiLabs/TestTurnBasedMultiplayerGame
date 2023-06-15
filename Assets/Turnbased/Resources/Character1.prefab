@@ -686,6 +686,7 @@ MonoBehaviour:
   playerDetailsUI: {fileID: 3707697977957380385}
   characterModelSpawnPoint: {fileID: 7931866345267992788}
   isDefending: 0
+  _animator: {fileID: 0}
 --- !u!114 &3707697978779791052
 MonoBehaviour:
   m_ObjectHideFlags: 0
