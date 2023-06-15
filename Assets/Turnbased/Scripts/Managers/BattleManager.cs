@@ -9,7 +9,6 @@ using Unit = Turnbased.Scripts.Player.Unit;
 public class BattleManager : MonoBehaviour
 {
    public static BattleManager instance;
-   public int TurnIndex;
    
    [SerializeField] private BattleUIManager _battleUIManager;
    private PhotonView pView;
@@ -22,7 +21,6 @@ public class BattleManager : MonoBehaviour
       }
 
       pView = PhotonView.Get(this);
-      TurnIndex = TurnHandler.GetInstance().GetMyTurn();
    }
 
    public static BattleManager GetInstance()
@@ -32,6 +30,11 @@ public class BattleManager : MonoBehaviour
    
    public void DoAction(int moveType)
    {
+      if (!TurnHandler.GetInstance().IsMyCurrentTurn())
+      {
+         return;
+      }
+
       switch ((EMoveType)moveType)
       {
          case EMoveType.Attack:
@@ -53,7 +56,7 @@ public class BattleManager : MonoBehaviour
    [PunRPC]
    private void NextTurn()
    {
-     TurnHandler.GetInstance().EndTurn(TurnIndex);
+     TurnHandler.GetInstance().EndTurn();
    }
    
 
@@ -74,15 +77,15 @@ public class BattleManager : MonoBehaviour
 
    private void Attack()
    {
-      GameObject opponent = GetOpponentPlayer();
-      if (opponent != null)
-      {
-         Unit opponentUnit = opponent.GetComponent<Unit>();
-         if (opponentUnit!=null)
+         GameObject opponent = GetOpponentPlayer();
+         if (opponent != null)
          {
-            opponentUnit.Attack();
+            Unit opponentUnit = opponent.GetComponent<Unit>();
+            if (opponentUnit!=null)
+            {
+               opponentUnit.Attack();
+            }
          }
-      }
    }
 
    GameObject GetOpponentPlayer()
