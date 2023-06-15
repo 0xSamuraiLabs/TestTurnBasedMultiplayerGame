@@ -6,10 +6,16 @@ using UnityEngine;
 public class BattleUIManager : MonoBehaviour
 {
     [SerializeField] private TMP_Text battleMessageText;
+    [SerializeField] private CanvasGroup battleActions;
 
-    public void ShowIncomingBattleText(CharacterData characterData)
+    public void SetBattleActions(bool state)
+    {
+        battleActions.interactable = state;
+    }
+
+    public void ShowIncomingBattleText(string msg)
     {
         battleMessageText.text =
-            characterData.characterName + " did attack of " + characterData.DamageInfo.damageAmount;
+            msg;
     }
 }

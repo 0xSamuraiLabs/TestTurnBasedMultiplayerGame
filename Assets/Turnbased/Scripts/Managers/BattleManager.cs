@@ -21,12 +21,29 @@ public class BattleManager : MonoBehaviour
       }
 
       pView = PhotonView.Get(this);
+      SetTurnMessage();
+      
+   }
+
+   void SetTurnMessage()
+   {
+      if (TurnHandler.GetInstance().IsMyCurrentTurn())
+      {
+         _battleUIManager.ShowIncomingBattleText("Please Choose Your Move");
+         _battleUIManager.SetBattleActions(true);
+      }
+      else
+      {
+         _battleUIManager.ShowIncomingBattleText("Waiting For Opponent To Play");
+         _battleUIManager.SetBattleActions(false);
+      }
    }
 
    public static BattleManager GetInstance()
    {
       return instance;
    }
+   
    
    public void DoAction(int moveType)
    {
@@ -57,6 +74,7 @@ public class BattleManager : MonoBehaviour
    private void NextTurn()
    {
      TurnHandler.GetInstance().EndTurn();
+     SetTurnMessage();
    }
    
 
