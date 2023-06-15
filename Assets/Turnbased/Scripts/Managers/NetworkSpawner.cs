@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Turnbased.Scripts.Managers
 {
-    public class NetworkSpawner : MonoBehaviourPunCallbacks
+    public class NetworkSpawner : MonoBehaviourPunCallbacks 
     {
         [SerializeField] private Transform playerSpawnPoint, opponentSpawnPoint;
         private Camera _camera;
@@ -38,12 +38,11 @@ namespace Turnbased.Scripts.Managers
                 player = PhotonNetwork.Instantiate(CharacterDatabase.GetInstance().GetCharacterWithID(PlayerCharacterManager.GetInstance().GetUserCharacterID()).name, opponentSpawnPoint.position, Quaternion.identity);
                 // _camera.orthographicSize = -_camera.orthographicSize;
                 // player.transform.localScale = -(player.transform.localScale);
-
             }
-            BattleManager.GetInstance().Init(player.GetComponent<Unit>());
-            
         }
 
-       
+        
+
+        
     }
 }

@@ -600,7 +600,7 @@ GameObject:
   - component: {fileID: 3707697978779791052}
   m_Layer: 0
   m_Name: Character1
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -713,8 +713,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   charData: {fileID: 11400000, guid: 73f6094714f194df2b76f47280451e74, type: 2}
-  turnIndex: 0
   playerDetailsUI: {fileID: 3707697977957380385}
+  _moveData: {fileID: 0}
 --- !u!114 &3707697978779791052
 MonoBehaviour:
   m_ObjectHideFlags: 0

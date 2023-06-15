@@ -11,8 +11,8 @@ namespace Turnbased.Scripts.Player
         private Damagable _damagable;
         private PhotonView pv;
         [SerializeField]private PlayerDetailsUI playerDetailsUI;
-
         [SerializeField] private MoveData _moveData;
+
         // Start is called before the first frame update
         void Start()
         {
@@ -20,8 +20,8 @@ namespace Turnbased.Scripts.Player
             playerDetailsUI.SetDetails(charData.characterName);
             pv = GetComponent<PhotonView>();
         }
-
-
+        
+        
         public void Attack()
         {
             TakeDamage(charData.DamageInfo);
@@ -51,6 +51,6 @@ namespace Turnbased.Scripts.Player
         {
             return charData.DamageInfo;
         }
-    
+        
     }
 }

@@ -244,7 +244,7 @@ GameObject:
   - component: {fileID: 6553735391652124338}
   m_Layer: 0
   m_Name: Character2
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -357,8 +357,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   charData: {fileID: 11400000, guid: 5b3b04a82f8174b868f7b9b5b39000c7, type: 2}
-  turnIndex: 0
   playerDetailsUI: {fileID: 6553735391421292126}
+  _moveData: {fileID: 0}
 --- !u!114 &6553735391652124338
 MonoBehaviour:
   m_ObjectHideFlags: 0

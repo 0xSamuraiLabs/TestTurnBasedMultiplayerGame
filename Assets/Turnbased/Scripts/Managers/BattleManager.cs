@@ -2,8 +2,9 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Photon.Pun;
-using Turnbased.Scripts.Player;
+using Unity.VisualScripting;
 using UnityEngine;
+using Unit = Turnbased.Scripts.Player.Unit;
 
 public class BattleManager : MonoBehaviour
 {
@@ -11,7 +12,6 @@ public class BattleManager : MonoBehaviour
    public int TurnIndex;
    
    [SerializeField] private BattleUIManager _battleUIManager;
-   [SerializeField] private Unit myPlayer;
    private PhotonView pView;
 
    private void Start()
@@ -22,17 +22,14 @@ public class BattleManager : MonoBehaviour
       }
 
       pView = PhotonView.Get(this);
+      TurnIndex = TurnHandler.GetInstance().GetMyTurn();
    }
 
    public static BattleManager GetInstance()
    {
       return instance;
    }
-
-   public void Init(Unit player)
-   {
-      myPlayer = player;
-   }
+   
    public void DoAction(int moveType)
    {
       switch ((EMoveType)moveType)
@@ -56,7 +53,7 @@ public class BattleManager : MonoBehaviour
    [PunRPC]
    private void NextTurn()
    {
-     TurnHandler.GetInstance().EndTurn(myPlayer.get);
+     TurnHandler.GetInstance().EndTurn(TurnIndex);
    }
    
 
@@ -77,8 +74,29 @@ public class BattleManager : MonoBehaviour
 
    private void Attack()
    {
-      myPlayer.Attack();
-      // _battleUIManager.ShowIncomingBattleText(attacker.charData);
+      GameObject opponent = GetOpponentPlayer();
+      if (opponent != null)
+      {
+         Unit opponentUnit = opponent.GetComponent<Unit>();
+         if (opponentUnit!=null)
+         {
+            opponentUnit.Attack();
+         }
+      }
+   }
+
+   GameObject GetOpponentPlayer()
+   {
+      GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+      foreach (var pla in players)
+      {
+         if (!pla.GetComponent<PhotonView>().IsMine)
+         {
+            return pla;
+         }
+      }
+
+      return null;
    }
 }
 

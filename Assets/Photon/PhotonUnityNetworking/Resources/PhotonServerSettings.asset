@@ -34,15 +34,14 @@ MonoBehaviour:
   RunInBackground: 1
   StartInOfflineMode: 0
   RpcList:
+  - AssignOpponent
   - ClickRpc
   - DestroyRpc
   - DestroySpaceship
   - Fire
-  - RespawnSpaceship
-  - SpawnOpponent
   - NextTurn
+  - RespawnSpaceship
   - TakeDamageRPC
-  - StartTurn
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1

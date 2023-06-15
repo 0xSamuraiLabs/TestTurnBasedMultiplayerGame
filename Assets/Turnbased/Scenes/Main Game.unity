@@ -554,9 +554,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7818c05a90df14cb996c807e307ccc2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attacker: {fileID: 0}
-  defender: {fileID: 0}
+  TurnIndex: 0
   _battleUIManager: {fileID: 0}
+  myPlayer: {fileID: 0}
 --- !u!4 &543488036
 Transform:
   m_ObjectHideFlags: 0
@@ -1920,6 +1920,50 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1827198490}
   m_CullTransparentMesh: 1
+--- !u!1 &1838027409
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1838027411}
+  - component: {fileID: 1838027410}
+  m_Layer: 0
+  m_Name: TurnHandler
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1838027410
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1838027409}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a2b49599fc57b4be1967b740bf52e4b7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &1838027411
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1838027409}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 5.7217197, y: -1.5295663, z: -0.01596587}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1895126287
 GameObject:
   m_ObjectHideFlags: 0
