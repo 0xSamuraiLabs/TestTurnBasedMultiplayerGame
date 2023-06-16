@@ -124,10 +124,11 @@ public class BattleManager : MonoBehaviour
 
    private void Attack()
    {
+      Unit playerUnit=null;
       GameObject player = GetMyPlayer();
       if (player != null)
       {
-         Unit playerUnit = player.GetComponent<Unit>();
+         playerUnit = player.GetComponent<Unit>();
          playerUnit.PlayAttackAnimation();
       }
       
@@ -137,7 +138,7 @@ public class BattleManager : MonoBehaviour
             Unit opponentUnit = opponent.GetComponent<Unit>();
             if (opponentUnit!=null)
             {
-               opponentUnit.Attack();
+               if (playerUnit != null) opponentUnit.Attack(playerUnit.charData.DamageInfo);
             }
          }
    }

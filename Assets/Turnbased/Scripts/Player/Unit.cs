@@ -75,9 +75,9 @@ namespace Turnbased.Scripts.Player
             _animator.SetTrigger("Attack");
         }
         
-        public void Attack()
+        public void Attack(DamageInfo damageInfo)
         {
-            TakeDamage(charData.DamageInfo);
+            TakeDamage(damageInfo);
             Defend(false);
         }
 

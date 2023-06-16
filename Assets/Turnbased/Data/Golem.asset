@@ -16,5 +16,5 @@ MonoBehaviour:
   characterName: Golem
   defense: 30
   DamageInfo:
-    damageAmount: 10
+    damageAmount: 20
     isCritical: 0
