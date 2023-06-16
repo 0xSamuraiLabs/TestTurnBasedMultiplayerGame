@@ -17,8 +17,10 @@ namespace Turnbased.Scripts.Player
         [SerializeField]private PlayerDetailsUI playerDetailsUI;
         [SerializeField] private Transform characterModelSpawnPoint;
         public bool isDefending;
-
+        public int currentCharacter;
         public Animator _animator;
+
+        private GameObject charModel;
         // Start is called before the first frame update
         void Start()
         {
@@ -28,18 +30,25 @@ namespace Turnbased.Scripts.Player
             
             if (pv.IsMine)
             {
-                SpawnCharacter(PlayerCharacterManager.GetInstance().GetUserCharacterID()[2]); 
+                SpawnCharacter(PlayerCharacterManager.GetInstance().GetUserCharacterID()[0]); 
             }
         }
 
         public void SpawnCharacter(int id)
         {
             pv.RPC(nameof(InitCharacter),RpcTarget.All,id);
+            currentCharacter = id;
         }
+
+       
         
         [PunRPC]
         void InitCharacter(int index)
         {
+            if (charModel != null)
+            {
+                Destroy(charModel);
+            }
             GameObject characterModel = Instantiate(CharacterDatabase.GetInstance()
                 .GetCharacterWithID(index).characterPrefab,characterModelSpawnPoint.transform);
             characterModel.transform.localScale = Vector3.one;
@@ -47,6 +56,7 @@ namespace Turnbased.Scripts.Player
             charData = CharacterDatabase.GetInstance()
                 .GetCharacterWithID(index).CharacterData;
             playerDetailsUI.SetDetails(charData.characterName);
+            charModel = characterModel;
         }
         
         public void PlayAttackAnimation()

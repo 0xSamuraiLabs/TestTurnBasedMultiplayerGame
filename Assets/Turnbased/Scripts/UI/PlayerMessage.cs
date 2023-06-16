@@ -17,7 +17,7 @@ namespace Turnbased.Scripts.UI
 
         IEnumerator DisableAfterTime()
         {
-            yield return new WaitForSeconds(0.8f);
+            yield return new WaitForSeconds(0.9f);
             messageText.gameObject.SetActive(false);
         }
     

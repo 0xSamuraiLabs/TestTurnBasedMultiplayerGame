@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Photon.Pun;
+using Turnbased.Scripts.UI;
 using Unity.VisualScripting;
 using UnityEngine;
 using Unit = Turnbased.Scripts.Player.Unit;
@@ -12,6 +13,7 @@ public class BattleManager : MonoBehaviour
    
    [SerializeField] private BattleUIManager _battleUIManager;
    private PhotonView pView;
+   [SerializeField] private CharacterSwapManager _characterSwapManager;
 
    private void Start()
    {
@@ -20,10 +22,12 @@ public class BattleManager : MonoBehaviour
          instance = this;
       }
 
+      CharacterSwapUI.OnCharacterSwapped += OnCharacterSwapped;
       pView = PhotonView.Get(this);
       SetTurnMessage();
       
    }
+
 
    void SetTurnMessage()
    {
@@ -80,7 +84,22 @@ public class BattleManager : MonoBehaviour
 
    private void Swap()
    {
-      throw new System.NotImplementedException();
+      GameObject player = GetMyPlayer(); 
+      if (player != null)
+      {
+         Unit playerUnit = player.GetComponent<Unit>();
+         _characterSwapManager.StartSwapProcess(playerUnit.currentCharacter);
+      }
+   }
+
+   private void OnCharacterSwapped(int obj)
+   {
+      GameObject player = GetMyPlayer(); 
+      if (player != null)
+      {
+         Unit playerUnit = player.GetComponent<Unit>();
+         playerUnit.SpawnCharacter(obj);
+      }
    }
 
    private void Heal()
