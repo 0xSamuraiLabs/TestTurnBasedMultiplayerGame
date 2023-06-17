@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Photon.Pun;
 using Turnbased.Scripts.Player;
 using Unity.Mathematics;
@@ -12,12 +13,24 @@ namespace Turnbased.Scripts.Managers
         private Camera _camera;
         GameObject player;
         private PhotonView _photonView;
+        
         public void Start()
         {
             _camera = Camera.main;
             _photonView = GetComponent<PhotonView>();
             SpawnPlayer();
         }
+
+        public Transform GetSpawnPlayerPosition()
+        {
+            return playerSpawnPoint;
+        }
+        
+        public Transform GetSpawnOpponentPosition()
+        {
+            return opponentSpawnPoint;
+        }
+
         
         void SpawnPlayer()
         {
@@ -40,6 +53,7 @@ namespace Turnbased.Scripts.Managers
                 // player.transform.localScale = -(player.transform.localScale);
             }
         }
+        
 
         
 

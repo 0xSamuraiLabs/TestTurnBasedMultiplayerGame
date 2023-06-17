@@ -11,7 +11,7 @@ using Random = UnityEngine.Random;
 
 namespace Turnbased.Scripts.Player
 {
-    public class Unit : MonoBehaviourPunCallbacks
+    public class Unit : MonoBehaviourPunCallbacks ,IPunInstantiateMagicCallback
     {
         public CharacterData charData;
         public Damagable _damagable;
@@ -35,17 +35,32 @@ namespace Turnbased.Scripts.Player
             _playerMessage = GetComponent<PlayerMessage>();
             _damagable.OnPlayerDead += OnPlayerDead;
             abilityManager = FindObjectOfType<AbilityManager>();
-            pv = GetComponent<PhotonView>();
             
             if (pv.IsMine)
             {
                 SpawnCharacter(PlayerCharacterManager.GetInstance().GetUserCharacterID()[0]); 
             }
             
-            FlipCharacter();
-
         }
-        
+
+        private void SwitchSpawn()
+        {
+            var units = FindObjectsOfType<Unit>();
+            foreach (var unit in units)
+            {
+                if (unit.pv.IsMine)
+                {
+                    unit.transform.position = FindObjectOfType<NetworkSpawner>().GetSpawnPlayerPosition().transform.position;
+                }
+                else
+                {
+                    unit.transform.position = FindObjectOfType<NetworkSpawner>().GetSpawnOpponentPosition().transform.position;
+                }
+            }
+            Debug.Log(units.Length +" zzz");
+            FlipCharacter(); 
+        }
+
 
         Unit GetOpponentPlayer()
         {
@@ -64,7 +79,7 @@ namespace Turnbased.Scripts.Player
 
         void FlipCharacter()
         {
-            if (pv.IsMine && PhotonNetwork.IsMasterClient)
+            if (pv.IsMine)
             {
                 transform.Find("CharacterSpawnPosition").Rotate(Vector3.up, 180f); // Rotate the character 180 degrees around the Y-axis
             }
@@ -254,6 +269,12 @@ namespace Turnbased.Scripts.Player
         public DamageInfo GetDamage()
         {
             return charData.DamageInfo;
+        }
+
+        public void OnPhotonInstantiate(PhotonMessageInfo info)
+        {
+            pv = GetComponent<PhotonView>();
+            SwitchSpawn();
         }
     }
 }
