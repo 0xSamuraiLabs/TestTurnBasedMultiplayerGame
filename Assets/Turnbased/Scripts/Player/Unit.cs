@@ -26,8 +26,11 @@ namespace Turnbased.Scripts.Player
         private GameObject charModel;
 
         private AbilityManager abilityManager;
+        
+        public event Action OnPlayerLeft;
 
-        public event Action OnPlayerLeft;  
+
+        [SerializeField] private AudioClip defend, heal, attack;
         // Start is called before the first frame update
         void Start()
         {
@@ -229,6 +232,7 @@ namespace Turnbased.Scripts.Player
                 _playerMessage.ShowMessage("Health++");
             }
             _damagable.IncreaseHealth(amt);
+            AudioManager.GetInstance().PlaySfx(heal);
         }
         
         private void TakeDamage(DamageInfo info)
@@ -242,6 +246,7 @@ namespace Turnbased.Scripts.Player
             pv.RPC(nameof(TakeDamageRPC),RpcTarget.AllBuffered,info.damageAmount);
             if (!isDefending)
             {
+                AudioManager.GetInstance().PlaySfx(defend);
                 pv.RPC(nameof(SendDamage),RpcTarget.Others);
             }
         }
@@ -262,6 +267,7 @@ namespace Turnbased.Scripts.Player
                 return;
             }
             _damagable.Damage(val);
+            AudioManager.GetInstance().PlaySfx(attack);
         }
         
         public bool IsFainted()
