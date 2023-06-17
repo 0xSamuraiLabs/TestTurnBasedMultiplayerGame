@@ -11,7 +11,7 @@ namespace Turnbased.Scripts.Player
     public class Unit : MonoBehaviourPunCallbacks
     {
         public CharacterData charData;
-        private Damagable _damagable;
+        public Damagable _damagable;
         private PhotonView pv;
         private PlayerMessage _playerMessage;
         [SerializeField]private PlayerDetailsUI playerDetailsUI;
@@ -28,6 +28,7 @@ namespace Turnbased.Scripts.Player
         {
             _damagable = GetComponent<Damagable>();
             _playerMessage = GetComponent<PlayerMessage>();
+            _damagable.OnPlayerDead += OnPlayerDead;
             abilityManager = FindObjectOfType<AbilityManager>();
             pv = GetComponent<PhotonView>();
             
@@ -35,6 +36,11 @@ namespace Turnbased.Scripts.Player
             {
                 SpawnCharacter(PlayerCharacterManager.GetInstance().GetUserCharacterID()[0]); 
             }
+        }
+
+        private void OnPlayerDead()
+        {
+            _animator.SetInteger("State",9);
         }
 
         public float GetMyAbility()
@@ -82,6 +88,9 @@ namespace Turnbased.Scripts.Player
             
             _animator.SetTrigger("Attack");
         }
+        
+        
+       
         
         public void Attack(DamageInfo damageInfo , bool isCritical=false)
         {

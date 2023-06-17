@@ -683,6 +683,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   charData: {fileID: 11400000, guid: 73f6094714f194df2b76f47280451e74, type: 2}
+  _damagable: {fileID: 0}
   playerDetailsUI: {fileID: 3707697977957380385}
   characterModelSpawnPoint: {fileID: 7931866345267992788}
   isDefending: 0
