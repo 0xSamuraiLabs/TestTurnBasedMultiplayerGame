@@ -41,7 +41,39 @@ namespace Turnbased.Scripts.Player
             {
                 SpawnCharacter(PlayerCharacterManager.GetInstance().GetUserCharacterID()[0]); 
             }
+            
+            FlipCharacter();
+
         }
+        
+
+        Unit GetOpponentPlayer()
+        {
+            GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+            Unit unit=null;
+            foreach (var pla in players)
+            {
+                if (!pla.GetComponent<PhotonView>().IsMine)
+                {
+                    return pla.GetComponent<Unit>();
+                }
+            }
+
+            return null;
+        }
+
+        void FlipCharacter()
+        {
+            if (pv.IsMine && PhotonNetwork.IsMasterClient)
+            {
+                transform.Find("CharacterSpawnPosition").Rotate(Vector3.up, 180f); // Rotate the character 180 degrees around the Y-axis
+            }
+            else
+            {
+                transform.Find("CharacterSpawnPosition").Rotate(Vector3.up, 0f); // Rotate the character 180 degrees around the Y-axis
+            }
+        }
+        
 
         private void OnPlayerDead()
         {
@@ -77,7 +109,10 @@ namespace Turnbased.Scripts.Player
         [PunRPC]
         void SetHealth(float health)
         {
-            _damagable.SetHealth(health);
+            if (_damagable)
+            {
+                _damagable.SetHealth(health);
+            }
         }
 
         [PunRPC]
@@ -220,7 +255,5 @@ namespace Turnbased.Scripts.Player
         {
             return charData.DamageInfo;
         }
-
-
     }
 }

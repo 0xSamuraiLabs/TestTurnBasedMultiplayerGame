@@ -46,6 +46,10 @@ MonoBehaviour:
   - TakeDamageRPC
   - AttackAnimationRPC
   - DeathAnimationRPC
+  - SetHealth
+  - SendDamage
+  - FlipMyCharacterRPC
+  - FlipCharacterRPC
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1

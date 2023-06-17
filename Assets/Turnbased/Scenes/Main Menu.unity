@@ -543,6 +543,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerId: 000000000100000002000000
+  characterData: []
 --- !u!4 &1081170632
 Transform:
   m_ObjectHideFlags: 0
