@@ -21,8 +21,23 @@ namespace Turnbased.Scripts.Managers
         {
             GetOpponentPlayer()._damagable.OnPlayerDead += OnOpponentDead;
             GetMyPlayer()._damagable.OnPlayerDead += OnPlayerDead;
+
+            GetMyPlayer().OnPlayerLeft += OnPlayerLeft;
+            GetOpponentPlayer().OnPlayerLeft += OnOpponentLeft;
         }
-        
+
+        private void OnOpponentLeft()
+        {
+            OnOpponentDead();
+            PhotonNetwork.LeaveRoom();
+        }
+
+        private void OnPlayerLeft()
+        {
+            OnPlayerDead();
+            PhotonNetwork.LeaveRoom();
+        }
+
         private void OnOpponentDead()
         {
             holder.SetActive(true);
@@ -69,11 +84,6 @@ namespace Turnbased.Scripts.Managers
 
             return null;
         }
-
-        private void OnDestroy()
-        {
-            GetOpponentPlayer()._damagable.OnPlayerDead -= OnOpponentDead;
-            GetMyPlayer()._damagable.OnPlayerDead -= OnPlayerDead;
-        }
+        
     }
 }

@@ -1,10 +1,13 @@
+using System;
 using ExitGames.Client.Photon;
 using Photon.Pun;
 using Photon.Realtime;
 using Turnbased.Scripts.Managers;
 using Turnbased.Scripts.UI;
 using Turnbased.Scripts.Utils;
+using Unity.VisualScripting;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Turnbased.Scripts.Player
 {
@@ -23,6 +26,8 @@ namespace Turnbased.Scripts.Player
         private GameObject charModel;
 
         private AbilityManager abilityManager;
+
+        public event Action OnPlayerLeft;  
         // Start is called before the first frame update
         void Start()
         {
@@ -54,8 +59,15 @@ namespace Turnbased.Scripts.Player
             currentCharacter = id;
         }
 
-       
-        
+        public override void OnPlayerLeftRoom(Photon.Realtime.Player otherPlayer)
+        {
+            base.OnPlayerLeftRoom(otherPlayer);
+            if (PhotonNetwork.CurrentRoom.PlayerCount < 2)
+            {
+                OnPlayerLeft?.Invoke();
+            }
+        }
+
         [PunRPC]
         void InitCharacter(int index)
         {
