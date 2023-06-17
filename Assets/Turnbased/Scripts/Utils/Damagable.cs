@@ -55,6 +55,11 @@ namespace Turnbased.Scripts.Utils
             }
             currentHealth -= damage;
             OnDamaged?.Invoke();
+            if (currentHealth <= 0)
+            {
+                Debug.Log("Player is dead");
+                OnPlayerDead?.Invoke();
+            }
         }
 
         public void IncreaseHealth(float amt)
