@@ -18,3 +18,4 @@ MonoBehaviour:
   DamageInfo:
     damageAmount: 60
     isCritical: 0
+  currentHealth: 100

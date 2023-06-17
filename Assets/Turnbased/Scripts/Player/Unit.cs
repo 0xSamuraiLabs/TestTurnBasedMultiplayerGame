@@ -55,8 +55,14 @@ namespace Turnbased.Scripts.Player
 
         public void SpawnCharacter(int id)
         {
-            pv.RPC(nameof(InitCharacter),RpcTarget.All,id);
             currentCharacter = id;
+            CharacterHealthData characterHealthData =
+                PlayerCharacterManager.GetInstance().GetCharacterHealthData(currentCharacter);
+
+            pv.RPC(nameof(InitCharacter),RpcTarget.All,id);
+            pv.RPC(nameof(SetHealth),RpcTarget.All,characterHealthData.health);
+
+
         }
 
         public override void OnPlayerLeftRoom(Photon.Realtime.Player otherPlayer)
@@ -66,6 +72,12 @@ namespace Turnbased.Scripts.Player
             {
                 OnPlayerLeft?.Invoke();
             }
+        }
+
+        [PunRPC]
+        void SetHealth(float health)
+        {
+            _damagable.SetHealth(health);
         }
 
         [PunRPC]
@@ -83,6 +95,7 @@ namespace Turnbased.Scripts.Player
                 .GetCharacterWithID(index).CharacterData;
             playerDetailsUI.SetDetails(charData.characterName);
             charModel = characterModel;
+            
         }
         
         public void PlayAttackAnimation()
@@ -138,12 +151,14 @@ namespace Turnbased.Scripts.Player
             {
                 Debug.Log("Potion was super effective! Completely healed!");
                 pv.RPC(nameof(HealRPC),RpcTarget.AllBuffered,_damagable.maxHealth);
+                PlayerCharacterManager.GetInstance().SaveCharacterHealth(currentCharacter,_damagable.GetCurrentHealth());
             }
             else
             {
                 Debug.Log("Potion used successfully!");
                 abilityManager.IncreaseAbility(30);
                 pv.RPC(nameof(HealRPC),RpcTarget.AllBuffered,amt);
+                PlayerCharacterManager.GetInstance().SaveCharacterHealth(currentCharacter,_damagable.GetCurrentHealth());
             }
             
             Defend(false);
@@ -172,6 +187,16 @@ namespace Turnbased.Scripts.Player
             }
             
             pv.RPC(nameof(TakeDamageRPC),RpcTarget.AllBuffered,info.damageAmount);
+            if (!isDefending)
+            {
+                pv.RPC(nameof(SendDamage),RpcTarget.Others);
+            }
+        }
+
+        [PunRPC]
+        void SendDamage()
+        {
+            PlayerCharacterManager.GetInstance().SaveCharacterHealth(currentCharacter,_damagable.GetCurrentHealth());
         }
 
         [PunRPC]
@@ -195,6 +220,7 @@ namespace Turnbased.Scripts.Player
         {
             return charData.DamageInfo;
         }
-        
+
+
     }
 }

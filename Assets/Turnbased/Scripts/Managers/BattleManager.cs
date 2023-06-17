@@ -158,7 +158,9 @@ public class BattleManager : MonoBehaviour
             if (opponentUnit!=null)
             {
                Debug.Log("Critical");
-               if (playerUnit != null) opponentUnit.Attack(playerUnit.charData.DamageInfo,true);
+               if (playerUnit != null) 
+                  opponentUnit.Attack(playerUnit.charData.DamageInfo,true);
+               
             }
          }
          

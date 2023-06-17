@@ -62,6 +62,12 @@ namespace Turnbased.Scripts.Utils
             }
         }
 
+        public void SetHealth(float amt)
+        {
+            currentHealth = amt;
+            OnDamaged?.Invoke();
+        }
+
         public void IncreaseHealth(float amt)
         {
             if (currentHealth >= maxHealth)
