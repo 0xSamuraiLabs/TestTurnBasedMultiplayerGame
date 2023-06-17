@@ -691,7 +691,6 @@ MonoBehaviour:
   _animator: {fileID: 0}
   defend: {fileID: 8300000, guid: f11db4559b3ffff45b62e9327fc5535d, type: 3}
   heal: {fileID: 8300000, guid: cfce0cea076109f478783201b2a9f57f, type: 3}
-  swap: {fileID: 0}
   attack: {fileID: 8300000, guid: 323e15cfe809e114ab92c9f4b25e8bc2, type: 3}
 --- !u!114 &3707697978779791052
 MonoBehaviour:
