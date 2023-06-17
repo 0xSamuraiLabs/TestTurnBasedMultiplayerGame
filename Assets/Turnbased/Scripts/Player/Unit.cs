@@ -92,6 +92,10 @@ namespace Turnbased.Scripts.Player
 
         private void OnPlayerDead()
         {
+            if (_animator == null)
+            {
+                _animator = this.transform.Find("CharacterSpawnPosition").GetComponentInChildren<Animator>();
+            }
             _animator.SetInteger("State",9);
         }
 
@@ -194,7 +198,7 @@ namespace Turnbased.Scripts.Player
 
             if (random <= potionFailChance)
             {
-                abilityManager.IncreaseAbility(30);
+                abilityManager.IncreaseAbility(15);
                 Debug.Log("Potion failed! It didn't work at all.");
             }
             else if (random <= potionFailChance + potionSuperEffectiveChance)
@@ -206,7 +210,6 @@ namespace Turnbased.Scripts.Player
             else
             {
                 Debug.Log("Potion used successfully!");
-                abilityManager.IncreaseAbility(30);
                 pv.RPC(nameof(HealRPC),RpcTarget.AllBuffered,amt);
                 PlayerCharacterManager.GetInstance().SaveCharacterHealth(currentCharacter,_damagable.GetCurrentHealth());
             }

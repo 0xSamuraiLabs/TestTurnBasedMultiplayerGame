@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
+using Photon.Pun;
 using Turnbased.Scripts.Player;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Turnbased.Scripts.Managers
 {
@@ -10,7 +12,21 @@ namespace Turnbased.Scripts.Managers
         [SerializeField] private int[] playerId;
         [SerializeField] private List<CharacterHealthData> characterData;
 
+        
         private void Awake()
+        {
+            SceneManager.sceneLoaded += OnSceneLoaded;
+        }
+
+        private void OnSceneLoaded(Scene arg0, LoadSceneMode arg1)
+        {
+            if (arg0.buildIndex == 1)
+            {
+                SetCharacterData();
+            }
+        }
+
+        void SetCharacterData()
         {
             characterData.Clear();
             for (int i = 0; i < playerId.Length; i++)

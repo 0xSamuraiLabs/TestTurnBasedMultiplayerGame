@@ -16,6 +16,5 @@ MonoBehaviour:
   characterName: Warg
   defense: 0
   DamageInfo:
-    damageAmount: 60
+    damageAmount: 25
     isCritical: 0
-  currentHealth: 100

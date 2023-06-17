@@ -16,5 +16,5 @@ MonoBehaviour:
   characterName: Cannibal
   defense: 10
   DamageInfo:
-    damageAmount: 25
+    damageAmount: 15
     isCritical: 0

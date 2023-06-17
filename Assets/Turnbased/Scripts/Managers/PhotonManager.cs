@@ -12,12 +12,17 @@ public class PhotonManager : MonoBehaviourPunCallbacks
     [SerializeField] private GameObject matchingPanel;
     [SerializeField] private TMP_Text matchingText;
     [SerializeField] private Button searchButton;
+    
     private void Start()
     {
         PhotonNetwork.ConnectUsingSettings();
+        if (PhotonNetwork.IsConnectedAndReady)
+        {
+            searchButton.interactable = true;
+        }
+        Debug.Log("CONNNECTED");
     }
     
-
     public override void OnConnectedToMaster()
     {
         base.OnConnectedToMaster();

@@ -52,7 +52,14 @@ namespace Turnbased.Scripts.Managers
 
         public void Back()
         {
-            SceneManager.LoadScene(0);
+            if (PhotonNetwork.InRoom)
+            {
+                PhotonNetwork.LeaveRoom();
+                Debug.Log("Left room");
+            }
+
+            PhotonNetwork.LoadLevel(0);
+            // SceneManager.LoadScene(0);
         }
 
 

@@ -31,7 +31,7 @@ namespace Turnbased.Scripts.Managers
                 return;
             }
             abilityValue += ability;
-            abilityValue = Mathf.Clamp(abilityValue, 0, 100);
+            abilityValue = Mathf.Clamp(abilityValue, 20, 100);
             slider.DOFillAmount((abilityValue / 100),.5f);
         }
         
@@ -40,7 +40,7 @@ namespace Turnbased.Scripts.Managers
         {
             abilityValue--;
         
-            if (abilityValue <= 0)
+            if (abilityValue <= 20)
             {
                 CancelInvoke(nameof(DecreaseAbility));
                 Debug.Log("Value reached or went below 0. Stopping the decrease process.");
@@ -57,6 +57,11 @@ namespace Turnbased.Scripts.Managers
         public float GetAbility()
         {
             return (abilityValue/100);
+        }
+
+        public void OnDestroy()
+        {
+            CharacterSwapUI.OnCharacterSwapped -= OnCharacterSwapped;
         }
     }
 }
