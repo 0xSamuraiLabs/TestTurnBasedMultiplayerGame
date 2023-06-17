@@ -23,7 +23,7 @@ namespace Turnbased.Scripts.UI
             for (int i = 0; i < characters.Count; i++)
             {
                 SwapButtonUI swapBtn = Instantiate(buttonPrefab, buttonSpawnLocation);
-                swapBtn.SetCharacterName(characters[i].ToString());
+                swapBtn.SetCharacterName(CharacterDatabase.GetInstance().GetCharacterNameByID(i).ToString());
                 var x = i;
                 swapBtn.btn.onClick.AddListener(delegate { OnClick(x); });
                 generatedUI.Add(swapBtn.gameObject);

@@ -5,6 +5,7 @@ using Photon.Pun;
 using Turnbased.Scripts.UI;
 using Unity.VisualScripting;
 using UnityEngine;
+using Random = UnityEngine.Random;
 using Unit = Turnbased.Scripts.Player.Unit;
 
 public class BattleManager : MonoBehaviour
@@ -125,23 +126,59 @@ public class BattleManager : MonoBehaviour
    private void Attack()
    {
       Unit playerUnit=null;
+      GameObject opponent = GetOpponentPlayer();
       GameObject player = GetMyPlayer();
       if (player != null)
       {
          playerUnit = player.GetComponent<Unit>();
          playerUnit.PlayAttackAnimation();
       }
-      
-      GameObject opponent = GetOpponentPlayer();
-         if (opponent != null)
+
+      if (playerUnit != null)
+      {
+         float abilityValue = playerUnit.GetMyAbility();
+
+         Debug.Log(abilityValue);
+         // Calculate modified probabilities based on ability bar level
+         float missChance = 0.05f * (1 + abilityValue);
+         float criticalChance = 0.04f * (1 - abilityValue);
+
+         float random = Random.Range(0f, 1f);
+        
+         
+         if (random <= missChance)
          {
+            Debug.Log("Attack missed!");
+         }
+         else if (random <= missChance + criticalChance)
+         { 
+            if (opponent != null)
+            { 
             Unit opponentUnit = opponent.GetComponent<Unit>();
             if (opponentUnit!=null)
             {
-               if (playerUnit != null) opponentUnit.Attack(playerUnit.charData.DamageInfo);
+               Debug.Log("Critical");
+               if (playerUnit != null) opponentUnit.Attack(playerUnit.charData.DamageInfo,true);
             }
          }
+         
+         }
+         else
+         {
+            if (opponent != null)
+            {
+               Unit opponentUnit = opponent.GetComponent<Unit>();
+               if (opponentUnit!=null)
+               {
+                  Debug.Log("Normal Attack");
+                  if (playerUnit != null) opponentUnit.Attack(playerUnit.charData.DamageInfo);
+               }
+            }
+         }
+      }
    }
+   
+   
    
    GameObject GetOpponentPlayer()
    {

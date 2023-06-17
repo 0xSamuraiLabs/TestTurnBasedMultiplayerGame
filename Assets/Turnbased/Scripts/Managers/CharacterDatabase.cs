@@ -20,8 +20,11 @@ public class CharacterDatabase : Singleton<CharacterDatabase>
         }
         return character;
     }
-
-
+    
+    public string GetCharacterNameByID(int id)
+    {
+        return GetCharacterWithID(id).CharacterData.characterName;
+    }
 }
 
 [Serializable]

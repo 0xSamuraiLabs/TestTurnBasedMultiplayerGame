@@ -21,17 +21,25 @@ namespace Turnbased.Scripts.Player
         public Animator _animator;
 
         private GameObject charModel;
+
+        private AbilityManager abilityManager;
         // Start is called before the first frame update
         void Start()
         {
             _damagable = GetComponent<Damagable>();
             _playerMessage = GetComponent<PlayerMessage>();
+            abilityManager = FindObjectOfType<AbilityManager>();
             pv = GetComponent<PhotonView>();
             
             if (pv.IsMine)
             {
                 SpawnCharacter(PlayerCharacterManager.GetInstance().GetUserCharacterID()[0]); 
             }
+        }
+
+        public float GetMyAbility()
+        {
+            return abilityManager.GetAbility();
         }
 
         public void SpawnCharacter(int id)
@@ -75,8 +83,9 @@ namespace Turnbased.Scripts.Player
             _animator.SetTrigger("Attack");
         }
         
-        public void Attack(DamageInfo damageInfo)
+        public void Attack(DamageInfo damageInfo , bool isCritical=false)
         {
+            damageInfo.isCritical = isCritical;
             TakeDamage(damageInfo);
             Defend(false);
         }
@@ -94,19 +103,53 @@ namespace Turnbased.Scripts.Player
 
         public void Heal(float amt)
         {
-            pv.RPC(nameof(HealRPC),RpcTarget.AllBuffered,amt);
+            float potionFailChance = 0.001f * (1 + GetMyAbility());
+            float potionSuperEffectiveChance = 0.0001f * (1 - GetMyAbility());
+
+            float random = Random.Range(0f, 1f);
+
+            if (random <= potionFailChance)
+            {
+                abilityManager.IncreaseAbility(30);
+                Debug.Log("Potion failed! It didn't work at all.");
+            }
+            else if (random <= potionFailChance + potionSuperEffectiveChance)
+            {
+                Debug.Log("Potion was super effective! Completely healed!");
+                pv.RPC(nameof(HealRPC),RpcTarget.AllBuffered,_damagable.maxHealth);
+            }
+            else
+            {
+                Debug.Log("Potion used successfully!");
+                abilityManager.IncreaseAbility(30);
+                pv.RPC(nameof(HealRPC),RpcTarget.AllBuffered,amt);
+            }
+            
             Defend(false);
         }
 
         [PunRPC]
         void HealRPC(float amt)
         {
-            _playerMessage.ShowMessage("Health++");
+            if (amt >= _damagable.maxHealth)
+            {
+                _playerMessage.ShowMessage("Super Heal");
+            }
+            else
+            {
+                _playerMessage.ShowMessage("Health++");
+            }
             _damagable.IncreaseHealth(amt);
         }
         
         private void TakeDamage(DamageInfo info)
         {
+            if (info.isCritical)
+            {
+                info.damageAmount *= 3;
+                _playerMessage.ShowMessage("Critical");
+            }
+            
             pv.RPC(nameof(TakeDamageRPC),RpcTarget.AllBuffered,info.damageAmount);
         }
 
